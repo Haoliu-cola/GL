@@ -1,0 +1,12 @@
+#BSUB -o /project/tantra/liuhao/GCL/SUGRL/output/_0.%J
+#BSUB -R "select[type==any]"
+#BSUB -q gpu-compute -gpu "num=1:gmodel=NVIDIAA40"
+#BSUB -N
+#BSUB -J Comp-GFS
+for i in 789 689 698 879 897 456 564 268 1234
+do
+  python main.py --dataset=Cora --k_shot=5 --n_way=2 --random_seed=$i --name=F3_m1_z23mo_lm0_mm09_$i --compare_mode=three --model_mode=fs3 --mmt=0.9
+done
+WANDB__SERVICE_WAIT=300 python main.py --k_shot=5 --dataset=Cora --random_seed=213 --compare_mode=m1 --model_mode=fs3 --name=FS3_m3_z23mo09_213 --mmt=0.9 --e2=0.1 --e3=0.1 --f2=0.1 --f3=0.1
+for i in 231 321 132 213 312 234 324 268 286 123 324 234 312
+python main.py --dataset=CoraFull --k_shot=5 --n_way=5 --random_seed=1234 --name=F3_m1_z23mo_lm0_mm09_1234 --compare_mode=three --model_mode=fs3 --mmt=0.9 --temperature2=1 --f1=0.4 --f2=0.4 --f3=0.4 --e1=0.4 --e2=0.4 --e3=0.4

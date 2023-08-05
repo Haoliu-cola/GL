@@ -1,0 +1,9 @@
+#BSUB -o /project/tantra/liuhao/GCL/SUGRL/output/_0.%J
+#BSUB -R "select[type==any]"
+#BSUB -q gpu-compute -gpu "num=1:gmodel=NVIDIAA10080GBPCIe"
+#BSUB -N
+#BSUB -J plt-GFS
+for i in 231
+do
+  WANDB__SERVICE_WAIT=300 python main.py --k_shot=1 --dataset=CiteSeer --random_seed=$i --compare_mode=m1 --model_mode=fs3 --name=FS3_m1_z23mo_32_$i
+done

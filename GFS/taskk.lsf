@@ -1,0 +1,10 @@
+#BSUB -o /project/tantra/liuhao/GCL/SUGRL/output/roman25.%J
+#BSUB -R "select[type==any]"
+#BSUB -q gpu-compute -gpu "num=1:gmodel=NVIDIAA40"
+#BSUB -N
+#BSUB -J Roman25-GFS
+for i in 1234 1235 2346 3457 4568 5679 123 231 321 132 213 312 234
+do
+  WANDB__SERVICE_WAIT=300 python main.py --dataset=Roman-empire --base_model=SAGE --random_seed=$i --k_shot=5 --name=F3_lm0_mm09_SAGE_$i
+done
+
