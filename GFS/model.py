@@ -51,6 +51,7 @@ class GNNModel(nn.Module):
         super().__init__()
         gnn_layer_by_name = {"GCN": GCNConv, "GAT": GATConv, "GraphConv": GraphConv, "SGC": SGConv, "SAGE": SAGEConv}
         gnn_layer = gnn_layer_by_name[layer_name]
+        print(layer_name)
         activation_by_name = {'relu': nn.ReLU(), 'prelu': nn.PReLU()}
         activation = activation_by_name[activation_name]
 
